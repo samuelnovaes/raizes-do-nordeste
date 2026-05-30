@@ -1,0 +1,4 @@
+require:
+  - tsx
+  - tests/helpers/setup.ts
+timeout: 10000
