@@ -404,9 +404,9 @@
               { "key": "Authorization", "value": "Bearer {{token}}" }
             ],
             "url": {
-              "raw": "{{baseUrl}}/pagamentos/processar",
+              "raw": "{{baseUrl}}/pagamentos",
               "host": ["{{baseUrl}}"],
-              "path": ["pagamentos", "processar"]
+              "path": ["pagamentos"]
             },
             "body": {
               "mode": "raw",
@@ -434,9 +434,9 @@
               { "key": "Authorization", "value": "Bearer {{token}}" }
             ],
             "url": {
-              "raw": "{{baseUrl}}/pagamentos/processar",
+              "raw": "{{baseUrl}}/pagamentos",
               "host": ["{{baseUrl}}"],
-              "path": ["pagamentos", "processar"]
+              "path": ["pagamentos"]
             },
             "body": {
               "mode": "raw",
@@ -470,9 +470,9 @@
               { "key": "Authorization", "value": "Bearer {{token}}" }
             ],
             "url": {
-              "raw": "{{baseUrl}}/fidelidade/resgatar",
+              "raw": "{{baseUrl}}/fidelidade/resgate",
               "host": ["{{baseUrl}}"],
-              "path": ["fidelidade", "resgatar"]
+              "path": ["fidelidade", "resgate"]
             },
             "body": {
               "mode": "raw",
@@ -499,9 +499,9 @@
               { "key": "Authorization", "value": "Bearer {{token}}" }
             ],
             "url": {
-              "raw": "{{baseUrl}}/fidelidade/resgatar",
+              "raw": "{{baseUrl}}/fidelidade/resgate",
               "host": ["{{baseUrl}}"],
-              "path": ["fidelidade", "resgatar"]
+              "path": ["fidelidade", "resgate"]
             },
             "body": {
               "mode": "raw",
