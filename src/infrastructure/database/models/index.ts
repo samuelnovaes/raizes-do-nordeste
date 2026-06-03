@@ -9,3 +9,4 @@ export { Pagamento, type IPagamento } from './Pagamento';
 export { Fidelidade, type IFidelidade } from './Fidelidade';
 export { HistoricoFidelidade, type IHistoricoFidelidade } from './HistoricoFidelidade';
 export { LogAuditoria, type ILogAuditoria } from './LogAuditoria';
+export { Promocao, type IPromocao } from './Promocao';

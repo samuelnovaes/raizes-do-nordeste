@@ -37,3 +37,9 @@ export enum TipoMovimentacao {
   SAIDA = 'SAIDA',
   AJUSTE = 'AJUSTE'
 }
+
+export enum TipoPromocao {
+  PERCENTUAL = 'PERCENTUAL',
+  VALOR_FIXO = 'VALOR_FIXO',
+  LEVE_PAGUE = 'LEVE_PAGUE'
+}
