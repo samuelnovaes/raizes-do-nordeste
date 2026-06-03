@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
-import * as fidelidadeService from '../../application/services/fidelidadeService.ts';
+import * as fidelidadeService from '../../application/services/fidelidadeService';
 
 // Consulta pontos de fidelidade do usuário
 export async function consultarPontos(req: Request, res: Response, next: NextFunction) {

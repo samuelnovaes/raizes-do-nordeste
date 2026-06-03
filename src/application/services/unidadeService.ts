@@ -1,5 +1,5 @@
-import { Unidade } from '../../infrastructure/database/models/index.ts';
-import { erroNaoEncontrado } from '../../domain/errors/index.ts';
+import { Unidade } from '../../infrastructure/database/models';
+import { erroNaoEncontrado } from '../../domain/errors';
 
 // Lista unidades com filtros opcionais
 export async function listarUnidades(filtros?: { nome?: string; cidade?: string }) {

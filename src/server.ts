@@ -1,6 +1,6 @@
 import 'dotenv/config';
-import { app } from './app.ts';
-import { conectarMongoDB } from './infrastructure/database/mongoose.ts';
+import { app } from './app';
+import { conectarMongoDB } from './infrastructure/database/mongoose';
 
 const porta = Number(process.env.PORT) || 3000;
 

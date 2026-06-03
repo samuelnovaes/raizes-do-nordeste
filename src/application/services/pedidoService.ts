@@ -1,7 +1,7 @@
-import { Pedido, Estoque, Produto } from '../../infrastructure/database/models/index.ts';
-import { erroNaoEncontrado, erroConflito } from '../../domain/errors/index.ts';
-import { registrarLog } from '../../infrastructure/repositories/logRepository.ts';
-import { registrarMovimentacao } from './estoqueService.ts';
+import { Pedido, Estoque, Produto } from '../../infrastructure/database/models';
+import { erroNaoEncontrado, erroConflito } from '../../domain/errors';
+import { registrarLog } from '../../infrastructure/repositories/logRepository';
+import { registrarMovimentacao } from './estoqueService';
 
 // Transições de status permitidas
 const transicoesPermitidas: Record<string, string[]> = {

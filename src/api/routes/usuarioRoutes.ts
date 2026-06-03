@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { autenticacao, autorizarPerfis } from '../middlewares/autenticacao.ts';
-import * as usuarioController from '../controllers/usuarioController.ts';
+import { autenticacao, autorizarPerfis } from '../middlewares/autenticacao';
+import * as usuarioController from '../controllers/usuarioController';
 
 const router = Router();
 

@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
-import * as unidadeService from '../../application/services/unidadeService.ts';
+import * as unidadeService from '../../application/services/unidadeService';
 
 // Lista todas as unidades
 export async function listar(req: Request, res: Response, next: NextFunction) {

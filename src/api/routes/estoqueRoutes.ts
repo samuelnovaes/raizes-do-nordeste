@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import { z } from 'zod';
-import { validacao } from '../middlewares/validacao.ts';
-import { autenticacao, autorizarPerfis } from '../middlewares/autenticacao.ts';
-import * as estoqueController from '../controllers/estoqueController.ts';
+import { validacao } from '../middlewares/validacao';
+import { autenticacao, autorizarPerfis } from '../middlewares/autenticacao';
+import * as estoqueController from '../controllers/estoqueController';
 
 const router = Router();
 

@@ -1,6 +1,6 @@
-import { Fidelidade, Usuario } from '../../infrastructure/database/models/index.ts';
-import { erroConflito, erroNaoEncontrado } from '../../domain/errors/index.ts';
-import { registrarLog } from '../../infrastructure/repositories/logRepository.ts';
+import { Fidelidade, Usuario } from '../../infrastructure/database/models';
+import { erroConflito, erroNaoEncontrado } from '../../domain/errors';
+import { registrarLog } from '../../infrastructure/repositories/logRepository';
 
 // Consulta pontos de fidelidade do usuário
 export async function consultarPontos(usuarioId: string) {

@@ -1,8 +1,8 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { Usuario } from '../../infrastructure/database/models/index.ts';
-import { erroNaoEncontrado, erroConflito, erroNaoAutenticado } from '../../domain/errors/index.ts';
-import { registrarLog } from '../../infrastructure/repositories/logRepository.ts';
+import { Usuario } from '../../infrastructure/database/models';
+import { erroNaoEncontrado, erroConflito, erroNaoAutenticado } from '../../domain/errors';
+import { registrarLog } from '../../infrastructure/repositories/logRepository';
 
 // Registra um novo usuário no sistema
 export async function registrarUsuario(dados: {

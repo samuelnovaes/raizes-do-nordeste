@@ -1,7 +1,7 @@
-import { Pedido, Pagamento } from '../../infrastructure/database/models/index.ts';
-import { erroNaoEncontrado } from '../../domain/errors/index.ts';
-import { registrarLog } from '../../infrastructure/repositories/logRepository.ts';
-import { processarPagamentoMock } from '../../infrastructure/external/pagamentoMock.ts';
+import { Pedido, Pagamento } from '../../infrastructure/database/models';
+import { erroNaoEncontrado } from '../../domain/errors';
+import { registrarLog } from '../../infrastructure/repositories/logRepository';
+import { processarPagamentoMock } from '../../infrastructure/external/pagamentoMock';
 
 // Processa o pagamento de um pedido
 export async function processarPagamento(pedidoId: string, metodo: string) {

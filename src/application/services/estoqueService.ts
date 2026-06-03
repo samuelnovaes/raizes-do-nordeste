@@ -1,6 +1,6 @@
-import { Estoque, MovimentacaoEstoque } from '../../infrastructure/database/models/index.ts';
-import { erroConflito } from '../../domain/errors/index.ts';
-import { registrarLog } from '../../infrastructure/repositories/logRepository.ts';
+import { Estoque, MovimentacaoEstoque } from '../../infrastructure/database/models';
+import { erroConflito } from '../../domain/errors';
+import { registrarLog } from '../../infrastructure/repositories/logRepository';
 
 // Consulta estoque de uma unidade, opcionalmente por produto
 export async function consultarEstoque(unidadeId: string, produtoId?: string) {

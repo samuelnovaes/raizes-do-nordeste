@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
-import * as produtoService from '../../application/services/produtoService.ts';
+import * as produtoService from '../../application/services/produtoService';
 
 // Lista produtos com paginação
 export async function listar(req: Request, res: Response, next: NextFunction) {

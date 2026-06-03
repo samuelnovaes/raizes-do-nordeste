@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
 import { randomUUID } from 'node:crypto';
-import { AppError } from '../../domain/errors/AppError.ts';
+import { AppError } from '../../domain/errors/AppError';
 
 // Middleware global de tratamento de erros
 export function erroHandler(

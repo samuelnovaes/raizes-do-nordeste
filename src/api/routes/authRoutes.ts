@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import { z } from 'zod';
-import { validacao } from '../middlewares/validacao.ts';
-import { autenticacao } from '../middlewares/autenticacao.ts';
-import * as authController from '../controllers/authController.ts';
+import { validacao } from '../middlewares/validacao';
+import { autenticacao } from '../middlewares/autenticacao';
+import * as authController from '../controllers/authController';
 
 const router = Router();
 

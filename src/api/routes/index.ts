@@ -1,13 +1,13 @@
 import { Router } from 'express';
-import { authRoutes } from './authRoutes.ts';
-import { unidadeRoutes } from './unidadeRoutes.ts';
-import { produtoRoutes } from './produtoRoutes.ts';
-import { estoqueRoutes } from './estoqueRoutes.ts';
-import { pedidoRoutes } from './pedidoRoutes.ts';
-import { pagamentoRoutes } from './pagamentoRoutes.ts';
-import { fidelidadeRoutes } from './fidelidadeRoutes.ts';
-import { promocaoRoutes } from './promocaoRoutes.ts';
-import { usuarioRoutes } from './usuarioRoutes.ts';
+import { authRoutes } from './authRoutes';
+import { unidadeRoutes } from './unidadeRoutes';
+import { produtoRoutes } from './produtoRoutes';
+import { estoqueRoutes } from './estoqueRoutes';
+import { pedidoRoutes } from './pedidoRoutes';
+import { pagamentoRoutes } from './pagamentoRoutes';
+import { fidelidadeRoutes } from './fidelidadeRoutes';
+import { promocaoRoutes } from './promocaoRoutes';
+import { usuarioRoutes } from './usuarioRoutes';
 
 const router = Router();
 

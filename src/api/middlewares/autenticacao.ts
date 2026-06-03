@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { erroNaoAutenticado, erroSemPermissao } from '../../domain/errors/index.ts';
+import { erroNaoAutenticado, erroSemPermissao } from '../../domain/errors';
 
 // Extensão do tipo Request para incluir dados do usuário
 declare global {

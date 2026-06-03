@@ -1,4 +1,4 @@
-import { LogAuditoria } from '../database/models/index.ts';
+import { LogAuditoria } from '../database/models';
 
 interface DadosLog {
   usuarioId: string;

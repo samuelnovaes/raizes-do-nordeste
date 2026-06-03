@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
-import { Usuario } from '../../infrastructure/database/models/index.ts';
-import { erroNaoEncontrado } from '../../domain/errors/index.ts';
+import { Usuario } from '../../infrastructure/database/models';
+import { erroNaoEncontrado } from '../../domain/errors';
 
 // Lista todos os usuários (apenas ADMIN)
 export async function listar(req: Request, res: Response, next: NextFunction) {

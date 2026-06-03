@@ -3,9 +3,9 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import swaggerUi from 'swagger-ui-express';
-import { erroHandler } from './api/middlewares/erroHandler.ts';
-import { router } from './api/routes/index.ts';
-import { swaggerSpec } from './api/docs/swaggerConfig.ts';
+import { erroHandler } from './api/middlewares/erroHandler';
+import { router } from './api/routes';
+import { swaggerSpec } from './api/docs/swaggerConfig';
 
 const app = express();
 

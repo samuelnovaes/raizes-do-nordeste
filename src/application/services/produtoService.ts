@@ -1,5 +1,5 @@
-import { Produto, Estoque } from '../../infrastructure/database/models/index.ts';
-import { erroNaoEncontrado } from '../../domain/errors/index.ts';
+import { Produto, Estoque, Categoria } from '../../infrastructure/database/models';
+import { erroNaoEncontrado } from '../../domain/errors';
 
 // Lista produtos com paginação e filtros
 export async function listarProdutos(filtros?: {
@@ -21,7 +21,6 @@ export async function listarProdutos(filtros?: {
   if (filtros?.categoria) {
     // Busca por nome de categoria via populate - filtramos após
     // Alternativa: buscar categoria primeiro
-    const { Categoria } = await import('../../infrastructure/database/models/index.ts');
     const cat = await Categoria.findOne({ nome: filtros.categoria });
     if (cat) {
       where.categoriaId = cat._id;

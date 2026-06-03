@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
-import * as pedidoService from '../../application/services/pedidoService.ts';
+import * as pedidoService from '../../application/services/pedidoService';
 
 // Cria um novo pedido
 export async function criar(req: Request, res: Response, next: NextFunction) {

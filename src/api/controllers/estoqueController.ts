@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
-import * as estoqueService from '../../application/services/estoqueService.ts';
+import * as estoqueService from '../../application/services/estoqueService';
 
 // Consulta estoque de uma unidade
 export async function consultar(req: Request, res: Response, next: NextFunction) {

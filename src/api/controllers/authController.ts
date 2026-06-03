@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
-import { registrarUsuario, loginUsuario, refreshToken } from '../../application/services/authService.ts';
-import { Usuario } from '../../infrastructure/database/models/index.ts';
-import { erroNaoEncontrado } from '../../domain/errors/index.ts';
+import { registrarUsuario, loginUsuario, refreshToken } from '../../application/services/authService';
+import { Usuario } from '../../infrastructure/database/models';
+import { erroNaoEncontrado } from '../../domain/errors';
 
 // Registra um novo usuário
 export async function registrar(req: Request, res: Response, next: NextFunction) {

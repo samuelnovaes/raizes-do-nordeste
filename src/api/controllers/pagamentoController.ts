@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
-import * as pagamentoService from '../../application/services/pagamentoService.ts';
+import * as pagamentoService from '../../application/services/pagamentoService';
 
 // Processa pagamento de um pedido
 export async function processar(req: Request, res: Response, next: NextFunction) {
