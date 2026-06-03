@@ -137,7 +137,12 @@ export async function atualizarStatusPedido(id: string, novoStatus: string, usua
 
   const statusAtual = pedido.status;
 
-  // Qualquer status pode ir para CANCELADO
+  // Estados terminais não permitem transição
+  if (statusAtual === 'ENTREGUE' || statusAtual === 'CANCELADO') {
+    throw erroConflito(`Pedido com status ${statusAtual} não pode ser alterado`);
+  }
+
+  // Qualquer status (exceto terminais) pode ir para CANCELADO
   if (novoStatus !== 'CANCELADO') {
     const permitidos = transicoesPermitidas[statusAtual];
 

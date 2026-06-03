@@ -8,7 +8,7 @@ const router = Router();
 
 const esquemaCriar = z.object({
   unidadeId: z.string().uuid(),
-  canalPedido: z.enum(['WHATSAPP', 'SITE', 'APP']),
+  canalPedido: z.enum(['APP', 'TOTEM', 'BALCAO', 'PICKUP', 'WEB']),
   itens: z.array(z.object({
     produtoId: z.string().uuid(),
     quantidade: z.number().int().positive()
