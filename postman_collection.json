@@ -82,6 +82,34 @@
               "raw": "{\n  \"email\": \"cliente@raizes.com\",\n  \"senha\": \"senhaerrada\"\n}"
             }
           }
+        },
+        {
+          "name": "Refresh token",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "{{baseUrl}}/auth/refresh",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "refresh"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"{{refreshToken}}\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Consultar perfil autenticado",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/auth/perfil",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "perfil"]
+            }
+          }
         }
       ]
     },
@@ -128,6 +156,25 @@
               "raw": "{\n  \"nome\": \"Raízes Aldeota\",\n  \"endereco\": \"Rua Torres Câmara, 200\",\n  \"cidade\": \"Fortaleza\",\n  \"estado\": \"CE\"\n}"
             }
           }
+        },
+        {
+          "name": "Atualizar unidade (GERENTE)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/unidades/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["unidades", "1"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Raízes Aldeota Atualizada\",\n  \"endereco\": \"Rua Torres Câmara, 250\",\n  \"cidade\": \"Fortaleza\",\n  \"estado\": \"CE\"\n}"
+            }
+          }
         }
       ]
     },
@@ -146,6 +193,17 @@
                 { "key": "page", "value": "1" },
                 { "key": "limit", "value": "10" }
               ]
+            }
+          }
+        },
+        {
+          "name": "Buscar produto por ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/produtos/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["produtos", "1"]
             }
           }
         },
@@ -176,6 +234,25 @@
             "body": {
               "mode": "raw",
               "raw": "{\n  \"nome\": \"Cuscuz Nordestino\",\n  \"descricao\": \"Cuscuz com manteiga e ovo\",\n  \"preco\": 15.90,\n  \"categoriaId\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "Atualizar produto (GERENTE)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/produtos/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["produtos", "1"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Cuscuz Nordestino Especial\",\n  \"preco\": 18.90\n}"
             }
           }
         }
@@ -512,6 +589,41 @@
       ]
     },
     {
+      "name": "Promoções",
+      "item": [
+        {
+          "name": "Listar promoções ativas",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/promocoes",
+              "host": ["{{baseUrl}}"],
+              "path": ["promocoes"]
+            }
+          }
+        },
+        {
+          "name": "Criar promoção (GERENTE)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/promocoes",
+              "host": ["{{baseUrl}}"],
+              "path": ["promocoes"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Promoção de Inauguração\",\n  \"descricao\": \"20% de desconto em todos os lanches\",\n  \"tipo\": \"PERCENTUAL\",\n  \"valor\": 20,\n  \"dataInicio\": \"2025-01-01T00:00:00Z\",\n  \"dataFim\": \"2025-12-31T23:59:59Z\",\n  \"ativo\": true\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
       "name": "Erros",
       "item": [
         {
@@ -645,6 +757,63 @@
               "raw": "{{baseUrl}}/pedidos/99999",
               "host": ["{{baseUrl}}"],
               "path": ["pedidos", "99999"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Usuários",
+      "item": [
+        {
+          "name": "Listar usuários (ADMIN)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/usuarios?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["usuarios"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Buscar usuário por ID (ADMIN)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/usuarios/123e4567-e89b-12d3-a456-426614174000",
+              "host": ["{{baseUrl}}"],
+              "path": ["usuarios", "123e4567-e89b-12d3-a456-426614174000"]
+            }
+          }
+        },
+        {
+          "name": "Listar usuários (sem token - 401)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/usuarios",
+              "host": ["{{baseUrl}}"],
+              "path": ["usuarios"]
+            }
+          }
+        },
+        {
+          "name": "Listar usuários (não ADMIN - 403)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/usuarios",
+              "host": ["{{baseUrl}}"],
+              "path": ["usuarios"]
             }
           }
         }
