@@ -4,9 +4,15 @@
     "description": "Collection para testar a API Raízes do Nordeste",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
+  "auth": {
+    "type": "bearer",
+    "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }]
+  },
   "variable": [
     { "key": "baseUrl", "value": "http://localhost:3000/api/v1" },
-    { "key": "token", "value": "" }
+    { "key": "token", "value": "" },
+    { "key": "refreshToken", "value": "" },
+    { "key": "promocaoId", "value": "" }
   ],
   "item": [
     {
@@ -36,9 +42,11 @@
               "script": {
                 "exec": [
                   "const res = pm.response.json();",
-                  "if (res.accessToken) { pm.collectionVariables.set('token', res.accessToken); }",
+                  "if (res.token) { pm.collectionVariables.set('token', res.token); }",
+                  "if (res.refreshToken) { pm.collectionVariables.set('refreshToken', res.refreshToken); }",
                   "pm.test('Status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('Retorna accessToken', () => pm.expect(res.accessToken).to.be.a('string'));"
+                  "pm.test('Retorna token', () => pm.expect(res.token).to.be.a('string'));",
+                  "pm.test('Retorna refreshToken', () => pm.expect(res.refreshToken).to.be.a('string'));"
                 ]
               }
             }
@@ -603,12 +611,49 @@
           }
         },
         {
-          "name": "Criar promoção (GERENTE)",
+          "name": "Listar promoções por canal",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/promocoes?canalPedido=APP",
+              "host": ["{{baseUrl}}"],
+              "path": ["promocoes"],
+              "query": [
+                { "key": "canalPedido", "value": "APP" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Buscar promoção por ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/promocoes/{{promocaoId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["promocoes", "{{promocaoId}}"]
+            }
+          }
+        },
+        {
+          "name": "Criar promoção (ADMIN/GERENTE)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res._id) { pm.collectionVariables.set('promocaoId', res._id); }",
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                  "pm.test('Retorna nome', () => pm.expect(res.nome).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              { "key": "Content-Type", "value": "application/json" }
             ],
             "url": {
               "raw": "{{baseUrl}}/promocoes",
@@ -617,8 +662,66 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nome\": \"Promoção de Inauguração\",\n  \"descricao\": \"20% de desconto em todos os lanches\",\n  \"tipo\": \"PERCENTUAL\",\n  \"valor\": 20,\n  \"dataInicio\": \"2025-01-01T00:00:00Z\",\n  \"dataFim\": \"2025-12-31T23:59:59Z\",\n  \"ativo\": true\n}"
+              "raw": "{\n  \"nome\": \"Promoção de Inauguração\",\n  \"descricao\": \"20% de desconto em todos os lanches\",\n  \"tipo\": \"PERCENTUAL\",\n  \"valor\": 20,\n  \"dataInicio\": \"2026-01-01T00:00:00.000Z\",\n  \"dataFim\": \"2026-12-31T23:59:59.000Z\",\n  \"ativo\": true\n}"
             }
+          }
+        },
+        {
+          "name": "Atualizar promoção (ADMIN/GERENTE)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/promocoes/{{promocaoId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["promocoes", "{{promocaoId}}"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Promoção Atualizada\",\n  \"valor\": 15\n}"
+            }
+          }
+        },
+        {
+          "name": "Desativar promoção (ADMIN/GERENTE)",
+          "request": {
+            "method": "PATCH",
+            "url": {
+              "raw": "{{baseUrl}}/promocoes/{{promocaoId}}/desativar",
+              "host": ["{{baseUrl}}"],
+              "path": ["promocoes", "{{promocaoId}}", "desativar"]
+            }
+          }
+        },
+        {
+          "name": "Criar promoção sem permissão (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 403', () => pm.response.to.have.status(403));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/promocoes",
+              "host": ["{{baseUrl}}"],
+              "path": ["promocoes"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Promo\",\n  \"descricao\": \"Desc\",\n  \"tipo\": \"PERCENTUAL\",\n  \"valor\": 10,\n  \"dataInicio\": \"2026-01-01T00:00:00.000Z\",\n  \"dataFim\": \"2026-12-31T23:59:59.000Z\"\n}"
+            },
+            "description": "Deve retornar 403 quando o usuário logado é CLIENTE"
           }
         }
       ]
