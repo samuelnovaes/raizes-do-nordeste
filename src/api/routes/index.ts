@@ -7,9 +7,11 @@ import { pedidoRoutes } from './pedidoRoutes.ts';
 import { pagamentoRoutes } from './pagamentoRoutes.ts';
 import { fidelidadeRoutes } from './fidelidadeRoutes.ts';
 import { promocaoRoutes } from './promocaoRoutes.ts';
+import { usuarioRoutes } from './usuarioRoutes.ts';
 
 const router = Router();
 
+router.use('/usuarios', usuarioRoutes);
 router.use('/auth', authRoutes);
 router.use('/unidades', unidadeRoutes);
 router.use('/produtos', produtoRoutes);
