@@ -2,8 +2,8 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import request from 'supertest';
 import jwt from 'jsonwebtoken';
-import { mockModels } from '../helpers/setup.ts';
-import { app } from '../../src/app.ts';
+import { mockModels } from '../helpers/setup';
+import { app } from '../../src/app';
 
 const gerarToken = (perfil = 'CLIENTE') => {
   return jwt.sign(

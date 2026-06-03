@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { processarPagamentoMock } from '../../src/infrastructure/external/pagamentoMock.ts';
+import { processarPagamentoMock } from '../../src/infrastructure/external/pagamentoMock';
 
 describe('processarPagamentoMock', () => {
   it('deve aprovar pagamento com valor válido', () => {

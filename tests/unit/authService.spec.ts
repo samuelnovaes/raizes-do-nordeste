@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import { mockModels } from '../helpers/setup.ts';
+import { mockModels } from '../helpers/setup';
 import bcrypt from 'bcryptjs';
 
-import * as authService from '../../src/application/services/authService.ts';
+import * as authService from '../../src/application/services/authService';
 
 describe('AuthService - Unit', () => {
   afterEach(() => {

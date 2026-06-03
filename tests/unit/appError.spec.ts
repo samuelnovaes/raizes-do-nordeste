@@ -6,7 +6,7 @@ import {
   erroNaoAutenticado,
   erroSemPermissao,
   erroConflito
-} from '../../src/domain/errors/index.ts';
+} from '../../src/domain/errors';
 
 describe('AppError', () => {
   it('deve criar erro com statusCode e código correto', () => {

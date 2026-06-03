@@ -1,13 +1,13 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 
-import { mockModels } from '../helpers/setup.ts';
-import * as fidelidadeService from '../../src/application/services/fidelidadeService.ts';
-import * as estoqueService from '../../src/application/services/estoqueService.ts';
-import * as pedidoService from '../../src/application/services/pedidoService.ts';
-import * as produtoService from '../../src/application/services/produtoService.ts';
-import { registrarLog } from '../../src/infrastructure/repositories/logRepository.ts';
-import { Usuario, Fidelidade, Estoque, MovimentacaoEstoque, Pedido, Produto, LogAuditoria } from '../../src/infrastructure/database/models/index.ts';
+import { mockModels } from '../helpers/setup';
+import * as fidelidadeService from '../../src/application/services/fidelidadeService';
+import * as estoqueService from '../../src/application/services/estoqueService';
+import * as pedidoService from '../../src/application/services/pedidoService';
+import * as produtoService from '../../src/application/services/produtoService';
+import { registrarLog } from '../../src/infrastructure/repositories/logRepository';
+import { Usuario, Fidelidade, Estoque, MovimentacaoEstoque, Pedido, Produto, LogAuditoria } from '../../src/infrastructure/database/models';
 
 describe('FidelidadeService - Unit', () => {
   afterEach(() => {

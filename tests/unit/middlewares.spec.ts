@@ -2,10 +2,10 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import jwt from 'jsonwebtoken';
 import type { Request, Response, NextFunction } from 'express';
-import { erroHandler } from '../../src/api/middlewares/erroHandler.ts';
-import { autenticacao, autorizarPerfis } from '../../src/api/middlewares/autenticacao.ts';
-import { validacao } from '../../src/api/middlewares/validacao.ts';
-import { AppError } from '../../src/domain/errors/AppError.ts';
+import { erroHandler } from '../../src/api/middlewares/erroHandler';
+import { autenticacao, autorizarPerfis } from '../../src/api/middlewares/autenticacao';
+import { validacao } from '../../src/api/middlewares/validacao';
+import { AppError } from '../../src/domain/errors/AppError';
 
 describe('erroHandler Middleware', () => {
   it('deve tratar AppError corretamente', () => {

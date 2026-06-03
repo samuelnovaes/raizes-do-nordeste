@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 import mongoose from 'mongoose';
-import { conectarMongoDB, desconectarMongoDB } from '../../src/infrastructure/database/mongoose.ts';
+import { conectarMongoDB, desconectarMongoDB } from '../../src/infrastructure/database/mongoose';
 
 describe('mongoose - conexão', () => {
   let connectStub: sinon.SinonStub;

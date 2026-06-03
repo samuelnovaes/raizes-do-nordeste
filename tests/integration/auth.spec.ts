@@ -3,8 +3,8 @@ import sinon from 'sinon';
 import request from 'supertest';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { mockModels } from '../helpers/setup.ts';
-import { app } from '../../src/app.ts';
+import { mockModels } from '../helpers/setup';
+import { app } from '../../src/app';
 
 describe('Auth - Integração', () => {
   afterEach(() => {

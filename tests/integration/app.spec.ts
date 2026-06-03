@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import request from 'supertest';
-import { mockModels } from '../helpers/setup.ts';
-import { app } from '../../src/app.ts';
+import { mockModels } from '../helpers/setup';
+import { app } from '../../src/app';
 
 describe('App - Integração', () => {
   afterEach(() => {

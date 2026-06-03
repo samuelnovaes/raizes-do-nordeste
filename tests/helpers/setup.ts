@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import * as models from '../../src/infrastructure/database/models/index.ts';
+import * as models from '../../src/infrastructure/database/models';
 
 // Stub de todos os métodos dos modelos Mongoose para testes
 const mockModels: any = {};
