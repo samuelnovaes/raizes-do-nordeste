@@ -115,6 +115,7 @@ stubModel(models.LogAuditoria, 'logAuditoria');
 stubModel(models.Fidelidade, 'fidelidade');
 stubModel(models.Unidade, 'unidade');
 stubModel(models.Categoria, 'categoria');
+stubModel(models.Promocao, 'promocao');
 
 process.env.JWT_SECRET = 'test-secret';
 process.env.DATABASE_URL = 'mongodb://mock:mock@localhost:27017/mock';
