@@ -537,6 +537,96 @@
           }
         },
         {
+          "name": "Acesso com perfil sem permissão (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Erro padrão', () => { const r = pm.response.json(); pm.expect(r.error).to.exist; pm.expect(r.message).to.exist; });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/unidades",
+              "host": ["{{baseUrl}}"],
+              "path": ["unidades"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Teste\",\n  \"endereco\": \"Rua X\",\n  \"cidade\": \"Recife\",\n  \"estado\": \"PE\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Pedido com produto inexistente (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 404', () => pm.response.to.have.status(404));",
+                  "pm.test('Erro padrão', () => { const r = pm.response.json(); pm.expect(r.error).to.exist; });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/pedidos",
+              "host": ["{{baseUrl}}"],
+              "path": ["pedidos"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"unidadeId\": 1,\n  \"canalPedido\": \"APP\",\n  \"itens\": [\n    { \"produtoId\": \"produto-inexistente-uuid\", \"quantidade\": 1 }\n  ],\n  \"formaPagamento\": \"PIX\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Pedido com quantidade inválida (422)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 422', () => pm.response.to.have.status(422));",
+                  "pm.test('Erro padrão', () => { const r = pm.response.json(); pm.expect(r.error).to.exist; });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/pedidos",
+              "host": ["{{baseUrl}}"],
+              "path": ["pedidos"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"unidadeId\": 1,\n  \"canalPedido\": \"TOTEM\",\n  \"itens\": [\n    { \"produtoId\": 1, \"quantidade\": -5 }\n  ],\n  \"formaPagamento\": \"PIX\"\n}"
+            }
+          }
+        },
+        {
           "name": "Recurso não encontrado (404)",
           "event": [
             {

@@ -93,9 +93,11 @@ http://localhost:3000/docs/swagger.json
 | Pedidos | GET | /api/v1/pedidos | Listar pedidos (filtros: canalPedido, status) |
 | Pedidos | GET | /api/v1/pedidos/:id | Buscar pedido |
 | Pedidos | PATCH | /api/v1/pedidos/:id/status | Atualizar status |
-| Pagamentos | POST | /api/v1/pagamentos/processar | Processar pagamento (mock) |
+| Pagamentos | POST | /api/v1/pagamentos | Processar pagamento (mock) |
 | Fidelidade | GET | /api/v1/fidelidade/pontos | Consultar pontos |
-| Fidelidade | POST | /api/v1/fidelidade/resgatar | Resgatar pontos |
+| Fidelidade | POST | /api/v1/fidelidade/resgate | Resgatar pontos |
+| Promoções | GET | /api/v1/promocoes | Listar promoções ativas |
+| Promoções | POST | /api/v1/promocoes | Criar promoção/campanha |
 
 ## Usuários de Teste (seed)
 
@@ -129,14 +131,15 @@ Todas as respostas de erro seguem o formato:
     { "field": "campo", "issue": "problema" }
   ],
   "timestamp": "2026-01-01T12:00:00.000Z",
-  "path": "/api/v1/rota"
+  "path": "/api/v1/rota",
+  "requestId": "uuid-da-requisicao"
 }
 ```
 
 ## Fluxo Crítico: Pedido → Pagamento → Status
 
 1. **Criar pedido** (`POST /api/v1/pedidos`) — valida estoque, calcula total, registra canal
-2. **Processar pagamento** (`POST /api/v1/pagamentos/processar`) — mock simula aprovação/recusa
+2. **Processar pagamento** (`POST /api/v1/pagamentos`) — mock simula aprovação/recusa
 3. **Atualizar status** (`PATCH /api/v1/pedidos/:id/status`) — transições: AGUARDANDO_PAGAMENTO → PAGO → EM_PREPARO → PRONTO → ENTREGUE
 
 ## Multicanalidade
