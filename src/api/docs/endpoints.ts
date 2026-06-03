@@ -27,6 +27,28 @@
  *       422:
  *         description: Dados inválidos
  *
+ * /auth/refresh:
+ *   post:
+ *     tags: [Autenticação]
+ *     summary: Renovar token de acesso
+ *     description: Gera um novo access token a partir de um refresh token válido.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [token]
+ *             properties:
+ *               token:
+ *                 type: string
+ *                 description: Refresh token válido
+ *     responses:
+ *       200:
+ *         description: Novo token gerado com sucesso
+ *       401:
+ *         description: Token inválido ou expirado
+ *
  * /auth/login:
  *   post:
  *     tags: [Autenticação]
@@ -111,6 +133,46 @@
  *         description: Dados da unidade
  *       404:
  *         description: Unidade não encontrada
+ *   put:
+ *     tags: [Unidades]
+ *     summary: Atualizar unidade
+ *     security:
+ *       - bearerAuth: []
+ *     description: Atualiza os dados de uma unidade. Requer perfil ADMIN ou GERENTE.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nome:
+ *                 type: string
+ *                 example: "Raízes Aldeota"
+ *               endereco:
+ *                 type: string
+ *                 example: "Rua Torres Câmara, 200"
+ *               cidade:
+ *                 type: string
+ *                 example: "Fortaleza"
+ *               estado:
+ *                 type: string
+ *                 example: "CE"
+ *     responses:
+ *       200:
+ *         description: Unidade atualizada
+ *       401:
+ *         description: Não autenticado
+ *       403:
+ *         description: Sem permissão
+ *       404:
+ *         description: Unidade não encontrada
  *
  * /produtos:
  *   get:
@@ -181,6 +243,61 @@
  *         description: Cardápio da unidade
  *       404:
  *         description: Unidade não encontrada
+ *
+ * /produtos/{id}:
+ *   get:
+ *     tags: [Produtos]
+ *     summary: Buscar produto por ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Dados do produto
+ *       404:
+ *         description: Produto não encontrado
+ *   put:
+ *     tags: [Produtos]
+ *     summary: Atualizar produto
+ *     security:
+ *       - bearerAuth: []
+ *     description: Atualiza os dados de um produto. Requer perfil ADMIN ou GERENTE.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nome:
+ *                 type: string
+ *               descricao:
+ *                 type: string
+ *               preco:
+ *                 type: number
+ *               categoria:
+ *                 type: string
+ *               imagem:
+ *                 type: string
+ *                 format: uri
+ *     responses:
+ *       200:
+ *         description: Produto atualizado
+ *       401:
+ *         description: Não autenticado
+ *       403:
+ *         description: Sem permissão
+ *       404:
+ *         description: Produto não encontrado
  *
  * /estoque/{unidadeId}:
  *   get:
@@ -434,6 +551,74 @@
  *               $ref: '#/components/schemas/Usuario'
  *       401:
  *         description: Não autenticado
+ *
+ * /usuarios:
+ *   get:
+ *     tags: [Usuários]
+ *     summary: Listar todos os usuários
+ *     security:
+ *       - bearerAuth: []
+ *     description: Retorna lista paginada de todos os usuários do sistema. Requer perfil ADMIN.
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *     responses:
+ *       200:
+ *         description: Lista paginada de usuários
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 dados:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Usuario'
+ *                 total:
+ *                   type: integer
+ *                 page:
+ *                   type: integer
+ *                 limit:
+ *                   type: integer
+ *       401:
+ *         description: Não autenticado
+ *       403:
+ *         description: Sem permissão (apenas ADMIN)
+ *
+ * /usuarios/{id}:
+ *   get:
+ *     tags: [Usuários]
+ *     summary: Buscar usuário por ID
+ *     security:
+ *       - bearerAuth: []
+ *     description: Retorna os dados de um usuário específico. Requer perfil ADMIN.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Dados do usuário
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Usuario'
+ *       401:
+ *         description: Não autenticado
+ *       403:
+ *         description: Sem permissão (apenas ADMIN)
+ *       404:
+ *         description: Usuário não encontrado
  *
  * /promocoes:
  *   get:
