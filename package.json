@@ -5,7 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "start": "node dist/server.js",
     "test": "mocha --node-option experimental-transform-types --node-option import=./scripts/loader.ts 'tests/**/*.spec.ts' --timeout 10000",
     "test:coverage": "c8 mocha --node-option experimental-transform-types --node-option import=./scripts/loader.ts 'tests/**/*.spec.ts' --timeout 10000",
