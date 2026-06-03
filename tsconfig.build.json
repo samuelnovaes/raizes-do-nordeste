@@ -4,6 +4,8 @@
     "sourceMap": false,
     "types": [],
     "rootDir": "./src",
-    "skipLibCheck": true
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "verbatimModuleSyntax": false
   }
 }
