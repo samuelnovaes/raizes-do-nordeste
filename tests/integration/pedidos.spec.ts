@@ -29,7 +29,7 @@ describe('Pedidos - Integração', () => {
   describe('POST /api/v1/pedidos', () => {
     const pedidoValido = {
       unidadeId: '123e4567-e89b-12d3-a456-426614174001',
-      canalPedido: 'WHATSAPP',
+      canalPedido: 'TOTEM',
       itens: [{ produtoId: '123e4567-e89b-12d3-a456-426614174002', quantidade: 2 }],
       formaPagamento: 'PIX'
     };
@@ -53,7 +53,7 @@ describe('Pedidos - Integração', () => {
         _id: 'pedido-1',
         usuarioId: '123e4567-e89b-12d3-a456-426614174000',
         unidadeId: pedidoValido.unidadeId,
-        canalPedido: 'WHATSAPP',
+        canalPedido: 'TOTEM',
         formaPagamento: 'PIX',
         status: 'AGUARDANDO_PAGAMENTO',
         total: 30.0,
@@ -124,7 +124,7 @@ describe('Pedidos - Integração', () => {
       mockModels.pedido.countDocuments.resolves(0);
 
       const res = await request(app)
-        .get('/api/v1/pedidos?canalPedido=WHATSAPP')
+        .get('/api/v1/pedidos?canalPedido=TOTEM')
         .set('Authorization', `Bearer ${gerarToken()}`);
 
       expect(res.status).to.equal(200);

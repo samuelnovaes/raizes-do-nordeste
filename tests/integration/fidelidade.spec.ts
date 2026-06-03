@@ -54,6 +54,10 @@ describe('Fidelidade - Integração', () => {
 
   describe('POST /api/v1/fidelidade/resgate', () => {
     it('deve resgatar pontos com sucesso', async () => {
+      mockModels.usuario.findById.resolves({
+        _id: '123e4567-e89b-12d3-a456-426614174000',
+        consentimentoLgpd: true
+      });
       mockModels.fidelidade.findOne.resolves({
         _id: 'fid-1',
         usuarioId: '123e4567-e89b-12d3-a456-426614174000',
@@ -76,6 +80,10 @@ describe('Fidelidade - Integração', () => {
     });
 
     it('deve retornar 409 quando pontos insuficientes', async () => {
+      mockModels.usuario.findById.resolves({
+        _id: '123e4567-e89b-12d3-a456-426614174000',
+        consentimentoLgpd: true
+      });
       mockModels.fidelidade.findOne.resolves({
         id: 'fid-1',
         usuarioId: '123e4567-e89b-12d3-a456-426614174000',

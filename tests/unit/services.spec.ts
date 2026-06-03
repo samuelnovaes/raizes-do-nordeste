@@ -77,6 +77,7 @@ describe('FidelidadeService - Unit', () => {
 
   describe('registrarResgate', () => {
     it('deve lançar erro quando fidelidade não existe', async () => {
+      mockModels.usuario.findById.resolves({ _id: 'abc123', consentimentoLgpd: true });
       mockModels.fidelidade.findOne.resolves(null);
 
       try {

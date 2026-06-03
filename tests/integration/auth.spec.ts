@@ -38,7 +38,7 @@ describe('Auth - Integração', () => {
 
       const res = await request(app)
         .post('/api/v1/auth/registrar')
-        .send({ nome: 'João', email: 'joao@email.com', senha: '123456' });
+        .send({ nome: 'João', email: 'joao@email.com', senha: '123456', consentimentoLgpd: true });
 
       expect(res.status).to.equal(201);
     });
@@ -51,7 +51,7 @@ describe('Auth - Integração', () => {
 
       const res = await request(app)
         .post('/api/v1/auth/registrar')
-        .send({ nome: 'João', email: 'joao@email.com', senha: '123456' });
+        .send({ nome: 'João', email: 'joao@email.com', senha: '123456', consentimentoLgpd: true });
 
       expect(res.status).to.equal(409);
     });
