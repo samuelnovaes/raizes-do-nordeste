@@ -16,14 +16,14 @@ services:
     build: .
     container_name: raizes_api
     ports:
-      - "${PORT}:${PORT}"
+      - "3000:3000"
     env_file:
       - .env
     environment:
-      PORT: "${PORT}"
+      PORT: "3000"
       DATABASE_URL: "mongodb://db:27017/raizes_nordeste"
       JWT_SECRET: "${JWT_SECRET}"
-      JWT_EXPIRES_IN: "${JWT_EXPIRES_IN}"
+      JWT_EXPIRES_IN: "1h"
       NODE_ENV: "production"
     depends_on:
       db:
