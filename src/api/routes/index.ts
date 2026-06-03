@@ -6,6 +6,7 @@ import { estoqueRoutes } from './estoqueRoutes.ts';
 import { pedidoRoutes } from './pedidoRoutes.ts';
 import { pagamentoRoutes } from './pagamentoRoutes.ts';
 import { fidelidadeRoutes } from './fidelidadeRoutes.ts';
+import { promocaoRoutes } from './promocaoRoutes.ts';
 
 const router = Router();
 
@@ -16,5 +17,6 @@ router.use('/estoque', estoqueRoutes);
 router.use('/pedidos', pedidoRoutes);
 router.use('/pagamentos', pagamentoRoutes);
 router.use('/fidelidade', fidelidadeRoutes);
+router.use('/promocoes', promocaoRoutes);
 
 export { router };
