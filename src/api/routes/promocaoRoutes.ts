@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { z } from 'zod';
 import { validacao } from '../middlewares/validacao';
 import { autenticacao, autorizarPerfis } from '../middlewares/autenticacao';
+import * as promocaoController from '../controllers/promocaoController';
 
 const router = Router();
 
@@ -18,33 +19,32 @@ const esquemaCriar = z.object({
   ativo: z.boolean().optional()
 });
 
-// Listar promoções ativas
-router.get('/', async (req, res) => {
-  // Retorna promoções vigentes (data atual entre dataInicio e dataFim)
-  // Filtrável por unidadeId, canalPedido e produtoId
-  res.json({
-    dados: [],
-    mensagem: 'Endpoint de promoções/campanhas - funcionalidade planejada para expansão futura'
-  });
+const esquemaAtualizar = z.object({
+  nome: z.string().min(2).optional(),
+  descricao: z.string().min(1).optional(),
+  tipo: z.enum(['PERCENTUAL', 'VALOR_FIXO', 'LEVE_PAGUE']).optional(),
+  valor: z.number().positive().optional(),
+  dataInicio: z.string().datetime().optional(),
+  dataFim: z.string().datetime().optional(),
+  unidadeId: z.string().optional(),
+  produtoId: z.string().optional(),
+  canalPedido: z.enum(['APP', 'TOTEM', 'BALCAO', 'PICKUP', 'WEB']).optional(),
+  ativo: z.boolean().optional()
 });
 
+// Listar promoções ativas
+router.get('/', promocaoController.listar);
+
+// Buscar promoção por ID
+router.get('/:id', promocaoController.buscar);
+
 // Criar promoção/campanha (GERENTE/ADMIN)
-router.post('/', autenticacao, autorizarPerfis('GERENTE', 'ADMIN'), validacao(esquemaCriar), async (req, res) => {
-  // Regras de aplicação de promoções:
-  // 1. Promoção PERCENTUAL: aplica desconto % sobre o total do pedido ou item específico
-  // 2. Promoção VALOR_FIXO: desconto de valor fixo no total
-  // 3. Promoção LEVE_PAGUE: ex. leve 3, pague 2 (campo valor indica quantidade paga)
-  //
-  // Regras de negócio:
-  // - Promoções podem ser limitadas a uma unidade específica (unidadeId)
-  // - Promoções podem ser limitadas a um canal específico (canalPedido)
-  // - Promoções podem ser limitadas a um produto específico (produtoId)
-  // - Apenas uma promoção pode ser aplicada por pedido (a de maior benefício)
-  // - Promoções expiradas (dataFim < now) não são aplicáveis
-  // - O campo "ativo" permite desativar manualmente uma promoção antes da data fim
-  res.status(201).json({
-    mensagem: 'Promoção criada (funcionalidade conceitual - implementação planejada)'
-  });
-});
+router.post('/', autenticacao, autorizarPerfis('GERENTE', 'ADMIN'), validacao(esquemaCriar), promocaoController.criar);
+
+// Atualizar promoção (GERENTE/ADMIN)
+router.put('/:id', autenticacao, autorizarPerfis('GERENTE', 'ADMIN'), validacao(esquemaAtualizar), promocaoController.atualizar);
+
+// Desativar promoção (GERENTE/ADMIN)
+router.patch('/:id/desativar', autenticacao, autorizarPerfis('GERENTE', 'ADMIN'), promocaoController.desativar);
 
 export { router as promocaoRoutes };
