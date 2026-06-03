@@ -694,4 +694,95 @@
  *         description: Não autenticado
  *       403:
  *         description: Sem permissão
+ *
+ * /promocoes/{id}:
+ *   get:
+ *     tags: [Promoções]
+ *     summary: Buscar promoção por ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Dados da promoção
+ *       404:
+ *         description: Promoção não encontrada
+ *   put:
+ *     tags: [Promoções]
+ *     summary: Atualizar promoção
+ *     security:
+ *       - bearerAuth: []
+ *     description: Atualiza os dados de uma promoção. Requer perfil ADMIN ou GERENTE.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nome:
+ *                 type: string
+ *               descricao:
+ *                 type: string
+ *               tipo:
+ *                 type: string
+ *                 enum: [PERCENTUAL, VALOR_FIXO, LEVE_PAGUE]
+ *               valor:
+ *                 type: number
+ *               dataInicio:
+ *                 type: string
+ *                 format: date-time
+ *               dataFim:
+ *                 type: string
+ *                 format: date-time
+ *               unidadeId:
+ *                 type: string
+ *               produtoId:
+ *                 type: string
+ *               canalPedido:
+ *                 type: string
+ *                 enum: [APP, TOTEM, BALCAO, PICKUP, WEB]
+ *               ativo:
+ *                 type: boolean
+ *     responses:
+ *       200:
+ *         description: Promoção atualizada
+ *       401:
+ *         description: Não autenticado
+ *       403:
+ *         description: Sem permissão
+ *       404:
+ *         description: Promoção não encontrada
+ *
+ * /promocoes/{id}/desativar:
+ *   patch:
+ *     tags: [Promoções]
+ *     summary: Desativar promoção
+ *     security:
+ *       - bearerAuth: []
+ *     description: Desativa uma promoção (soft delete). Requer perfil ADMIN ou GERENTE.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Promoção desativada
+ *       401:
+ *         description: Não autenticado
+ *       403:
+ *         description: Sem permissão
+ *       404:
+ *         description: Promoção não encontrada
  */
