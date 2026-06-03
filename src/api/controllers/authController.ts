@@ -1,5 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
 import { registrarUsuario, loginUsuario, refreshToken } from '../../application/services/authService.ts';
+import { Usuario } from '../../infrastructure/database/models/index.ts';
+import { erroNaoEncontrado } from '../../domain/errors/index.ts';
 
 // Registra um novo usuário
 export async function registrar(req: Request, res: Response, next: NextFunction) {
@@ -28,6 +30,19 @@ export async function renovarToken(req: Request, res: Response, next: NextFuncti
     const { token } = req.body;
     const resultado = await refreshToken(token);
     res.json(resultado);
+  } catch (erro) {
+    next(erro);
+  }
+}
+
+// Retorna o perfil do usuário autenticado
+export async function perfil(req: Request, res: Response, next: NextFunction) {
+  try {
+    const usuario = await Usuario.findById((req as any).usuario.id).select('-senha');
+    if (!usuario) {
+      throw erroNaoEncontrado('Usuário');
+    }
+    res.json(usuario);
   } catch (erro) {
     next(erro);
   }

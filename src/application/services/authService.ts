@@ -10,6 +10,7 @@ export async function registrarUsuario(dados: {
   email: string;
   senha: string;
   perfil?: string;
+  consentimentoLgpd: boolean;
 }) {
   const usuarioExistente = await Usuario.findOne({ email: dados.email });
 
@@ -23,7 +24,8 @@ export async function registrarUsuario(dados: {
     nome: dados.nome,
     email: dados.email,
     senha: senhaHash,
-    perfil: dados.perfil || 'CLIENTE'
+    perfil: dados.perfil || 'CLIENTE',
+    consentimentoLgpd: dados.consentimentoLgpd
   });
 
   await registrarLog({
