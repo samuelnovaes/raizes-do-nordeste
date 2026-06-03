@@ -50,6 +50,16 @@ export async function acumularPontos(usuarioId: string, valor: number) {
 
 // Registra resgate de pontos
 export async function registrarResgate(usuarioId: string, pontos: number, descricao: string) {
+  const usuario = await Usuario.findById(usuarioId);
+
+  if (!usuario) {
+    throw erroNaoEncontrado('Usuário');
+  }
+
+  if (!usuario.consentimentoLgpd) {
+    throw erroConflito('Usuário não possui consentimento LGPD para operações de fidelidade');
+  }
+
   const fidelidade = await Fidelidade.findOne({ usuarioId });
 
   if (!fidelidade || fidelidade.pontos < pontos) {
