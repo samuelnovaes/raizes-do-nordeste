@@ -348,7 +348,7 @@
  *       409:
  *         description: Transição de status inválida
  *
- * /pagamentos/processar:
+ * /pagamentos:
  *   post:
  *     tags: [Pagamentos]
  *     summary: Processar pagamento (mock)
@@ -390,7 +390,7 @@
  *       401:
  *         description: Não autenticado
  *
- * /fidelidade/resgatar:
+ * /fidelidade/resgate:
  *   post:
  *     tags: [Fidelidade]
  *     summary: Resgatar pontos de fidelidade
@@ -417,4 +417,96 @@
  *         description: Resgate realizado
  *       409:
  *         description: Pontos insuficientes ou sem consentimento
+ *
+ * /auth/perfil:
+ *   get:
+ *     tags: [Usuários]
+ *     summary: Consultar perfil do usuário autenticado
+ *     security:
+ *       - bearerAuth: []
+ *     description: Retorna os dados do perfil do usuário logado (sem expor senha ou dados sensíveis). Rota disponível em GET /auth/perfil.
+ *     responses:
+ *       200:
+ *         description: Dados do perfil
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Usuario'
+ *       401:
+ *         description: Não autenticado
+ *
+ * /promocoes:
+ *   get:
+ *     tags: [Promoções]
+ *     summary: Listar promoções/campanhas ativas
+ *     description: Retorna promoções vigentes. Filtrável por unidadeId, canalPedido e produtoId.
+ *     parameters:
+ *       - in: query
+ *         name: unidadeId
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: canalPedido
+ *         schema:
+ *           type: string
+ *           enum: [APP, TOTEM, BALCAO, PICKUP, WEB]
+ *       - in: query
+ *         name: produtoId
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Lista de promoções ativas
+ *   post:
+ *     tags: [Promoções]
+ *     summary: Criar promoção/campanha
+ *     security:
+ *       - bearerAuth: []
+ *     description: |
+ *       Cria uma nova promoção. Requer perfil ADMIN ou GERENTE.
+ *       Tipos de promoção: PERCENTUAL (desconto %), VALOR_FIXO (desconto em R$), LEVE_PAGUE (leve X pague Y).
+ *       Regras: apenas 1 promoção por pedido (maior benefício), promoções podem ser limitadas por unidade, canal ou produto.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [nome, descricao, tipo, valor, dataInicio, dataFim]
+ *             properties:
+ *               nome:
+ *                 type: string
+ *                 example: "Promoção de Inauguração"
+ *               descricao:
+ *                 type: string
+ *                 example: "20% de desconto em todos os lanches"
+ *               tipo:
+ *                 type: string
+ *                 enum: [PERCENTUAL, VALOR_FIXO, LEVE_PAGUE]
+ *               valor:
+ *                 type: number
+ *                 example: 20
+ *               dataInicio:
+ *                 type: string
+ *                 format: date-time
+ *               dataFim:
+ *                 type: string
+ *                 format: date-time
+ *               unidadeId:
+ *                 type: string
+ *               produtoId:
+ *                 type: string
+ *               canalPedido:
+ *                 type: string
+ *                 enum: [APP, TOTEM, BALCAO, PICKUP, WEB]
+ *               ativo:
+ *                 type: boolean
+ *                 default: true
+ *     responses:
+ *       201:
+ *         description: Promoção criada
+ *       401:
+ *         description: Não autenticado
+ *       403:
+ *         description: Sem permissão
  */
