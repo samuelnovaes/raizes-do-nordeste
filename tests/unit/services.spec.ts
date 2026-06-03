@@ -76,6 +76,30 @@ describe('FidelidadeService - Unit', () => {
   });
 
   describe('registrarResgate', () => {
+    it('deve lançar erro quando usuário não existe', async () => {
+      mockModels.usuario.findById.resolves(null);
+
+      try {
+        await fidelidadeService.registrarResgate('abc999', 50, 'Desconto');
+        expect.fail('Deveria ter lançado erro');
+      } catch (erro: any) {
+        expect(erro.statusCode).to.equal(404);
+      }
+    });
+
+    it('deve lançar erro quando usuário não tem consentimento LGPD', async () => {
+      mockModels.usuario.findById.resolves({ _id: 'abc123', consentimentoLgpd: false });
+      mockModels.fidelidade.findOne.resolves(null);
+
+      try {
+        await fidelidadeService.registrarResgate('abc123', 50, 'Desconto');
+        expect.fail('Deveria ter lançado erro');
+      } catch (erro: any) {
+        expect(erro.statusCode).to.equal(409);
+        expect(erro.message).to.include('LGPD');
+      }
+    });
+
     it('deve lançar erro quando fidelidade não existe', async () => {
       mockModels.usuario.findById.resolves({ _id: 'abc123', consentimentoLgpd: true });
       mockModels.fidelidade.findOne.resolves(null);
@@ -187,6 +211,18 @@ describe('PedidoService - Unit', () => {
         expect.fail('Deveria ter lançado erro');
       } catch (erro: any) {
         expect(erro.statusCode).to.equal(409);
+      }
+    });
+
+    it('deve lançar erro para transição não permitida entre estados não-terminais', async () => {
+      mockModels.pedido.findById.resolves({ _id: 'ped1', status: 'AGUARDANDO_PAGAMENTO', itens: [] });
+
+      try {
+        await pedidoService.atualizarStatusPedido('ped1', 'EM_PREPARO', 'usr1');
+        expect.fail('Deveria ter lançado erro');
+      } catch (erro: any) {
+        expect(erro.statusCode).to.equal(409);
+        expect(erro.message).to.include('não permitida');
       }
     });
   });

@@ -65,6 +65,44 @@ describe('Auth - Integração', () => {
     });
   });
 
+  describe('GET /api/v1/auth/perfil', () => {
+    it('deve retornar perfil do usuário autenticado', async () => {
+      const token = jwt.sign(
+        { id: '123e4567-e89b-12d3-a456-426614174000', email: 'joao@email.com', perfil: 'CLIENTE' },
+        'test-secret',
+        { expiresIn: '1h' }
+      );
+      mockModels.usuario.findById.resolves({
+        _id: '123e4567-e89b-12d3-a456-426614174000',
+        nome: 'João',
+        email: 'joao@email.com',
+        perfil: 'CLIENTE'
+      });
+
+      const res = await request(app)
+        .get('/api/v1/auth/perfil')
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(res.status).to.equal(200);
+      expect(res.body).to.have.property('nome', 'João');
+    });
+
+    it('deve retornar 404 quando usuário não existe', async () => {
+      const token = jwt.sign(
+        { id: 'inexistente', email: 'x@email.com', perfil: 'CLIENTE' },
+        'test-secret',
+        { expiresIn: '1h' }
+      );
+      mockModels.usuario.findById.resolves(null);
+
+      const res = await request(app)
+        .get('/api/v1/auth/perfil')
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(res.status).to.equal(404);
+    });
+  });
+
   describe('POST /api/v1/auth/refresh', () => {
     it('deve renovar token com refresh token válido', async () => {
       const token = jwt.sign(

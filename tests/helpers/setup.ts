@@ -57,6 +57,7 @@ function createPopulatableStub(stub: sinon.SinonStub) {
   stub.resolves = (val: any) => {
     const result = {
       populate: sinon.stub().resolves(val),
+      select: sinon.stub().resolves(val),
       then: (resolve: any, reject: any) => Promise.resolve(val).then(resolve, reject)
     };
     stub.returns(result);
@@ -68,6 +69,7 @@ function createPopulatableStub(stub: sinon.SinonStub) {
     const err = val instanceof Error ? val : new Error(val);
     const result = {
       populate: sinon.stub().rejects(err),
+      select: sinon.stub().rejects(err),
       then: (_resolve: any, reject: any) => Promise.reject(err).then(undefined, reject)
     };
     stub.returns(result);
