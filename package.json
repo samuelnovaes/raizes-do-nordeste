@@ -9,7 +9,7 @@
     "start": "node dist/server.js",
     "test": "mocha --node-option experimental-transform-types --node-option import=./scripts/loader.ts 'tests/**/*.spec.ts' --timeout 10000",
     "test:coverage": "c8 mocha --node-option experimental-transform-types --node-option import=./scripts/loader.ts 'tests/**/*.spec.ts' --timeout 10000",
-    "lint": "eslint src/",
+    "lint": "eslint .",
     "seed": "tsx scripts/seed.ts"
   },
   "keywords": [
