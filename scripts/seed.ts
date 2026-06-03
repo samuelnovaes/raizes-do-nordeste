@@ -1,6 +1,6 @@
 import 'dotenv/config';
-import { conectarMongoDB, desconectarMongoDB } from '../src/infrastructure/database/mongoose.ts';
-import { Usuario, Unidade, Categoria, Produto, Estoque, Fidelidade } from '../src/infrastructure/database/models/index.ts';
+import { conectarMongoDB, desconectarMongoDB } from '../src/infrastructure/database/mongoose';
+import { Usuario, Unidade, Categoria, Produto, Estoque, Fidelidade } from '../src/infrastructure/database/models';
 import * as bcrypt from 'bcryptjs';
 
 async function main() {
