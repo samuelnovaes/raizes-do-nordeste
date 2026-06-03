@@ -4,5 +4,6 @@
   "functions": 100,
   "branches": 100,
   "statements": 100,
-  "reporter": ["text", "lcov"]
+  "reporter": ["text", "lcov"],
+  "exclude": ["tests/**", "scripts/**"]
 }
