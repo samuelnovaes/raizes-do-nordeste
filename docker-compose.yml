@@ -21,7 +21,7 @@ services:
       - .env
     environment:
       PORT: "${PORT}"
-      DATABASE_URL: "${DATABASE_URL}"
+      DATABASE_URL: "mongodb://db:27017/raizes_nordeste"
       JWT_SECRET: "${JWT_SECRET}"
       JWT_EXPIRES_IN: "${JWT_EXPIRES_IN}"
       NODE_ENV: "production"
@@ -29,7 +29,7 @@ services:
       db:
         condition: service_healthy
     command: >
-      sh -c "node --experimental-transform-types scripts/seed.ts && node dist/server.js"
+      sh -c "node --experimental-transform-types --import=./scripts/loader.ts scripts/seed.ts && npx tsx src/server.ts"
 
 volumes:
   mongodata:
