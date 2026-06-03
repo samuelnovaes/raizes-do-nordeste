@@ -28,7 +28,8 @@ const opcoes = {
             message: { type: 'string', example: 'Mensagem legível' },
             details: { type: 'array', items: { type: 'object', properties: { field: { type: 'string' }, issue: { type: 'string' } } } },
             timestamp: { type: 'string', format: 'date-time' },
-            path: { type: 'string' }
+            path: { type: 'string' },
+            requestId: { type: 'string', format: 'uuid' }
           }
         },
         Usuario: {
