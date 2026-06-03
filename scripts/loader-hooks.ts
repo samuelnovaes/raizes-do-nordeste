@@ -2,7 +2,7 @@ import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-export async function resolve(specifier, context, nextResolve) {
+export async function resolve(specifier: string, context: { parentURL: string }, nextResolve: Function) {
   if (specifier.startsWith('.') && !specifier.match(/\.\w+$/)) {
     const parentPath = fileURLToPath(context.parentURL);
     const dir = path.dirname(parentPath);
