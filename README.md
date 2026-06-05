@@ -212,5 +212,6 @@ Para importar: Postman → Import → selecione o arquivo `postman_collection.js
 | `npm test` | Executa testes |
 | `npm run test:coverage` | Testes com relatório de cobertura |
 | `npm run lint` | Verifica estilo do código |
+| `npm run typecheck` | Checa a tipagem estática de todo o projeto sem gerar os arquivos de build |
 | `npm run seed` | Popula banco com dados de teste |
 | `npm run docs:generate` | Gera documentação OpenAPI/Swagger |
