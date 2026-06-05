@@ -82,11 +82,19 @@ http://localhost:3000/docs/swagger.json
 |--------|--------|------|-----------|
 | Auth | POST | /api/v1/auth/registrar | Registrar usuário |
 | Auth | POST | /api/v1/auth/login | Fazer login |
+| Auth | POST | /api/v1/auth/refresh | Renovar token |
+| Auth | GET | /api/v1/auth/perfil | Obter perfil logado |
+| Usuários | GET | /api/v1/usuarios | Listar usuários |
+| Usuários | GET | /api/v1/usuarios/:id | Buscar usuário por ID |
 | Unidades | GET | /api/v1/unidades | Listar unidades |
+| Unidades | GET | /api/v1/unidades/:id | Buscar unidade por ID |
 | Unidades | POST | /api/v1/unidades | Criar unidade |
+| Unidades | PUT | /api/v1/unidades/:id | Atualizar unidade |
 | Produtos | GET | /api/v1/produtos | Listar produtos |
+| Produtos | GET | /api/v1/produtos/:id | Buscar produto por ID |
 | Produtos | GET | /api/v1/produtos/cardapio/:unidadeId | Cardápio por unidade |
 | Produtos | POST | /api/v1/produtos | Criar produto |
+| Produtos | PUT | /api/v1/produtos/:id | Atualizar produto |
 | Estoque | GET | /api/v1/estoque/:unidadeId | Consultar estoque |
 | Estoque | POST | /api/v1/estoque/movimentacao | Registrar movimentação |
 | Pedidos | POST | /api/v1/pedidos | Criar pedido |
@@ -97,7 +105,10 @@ http://localhost:3000/docs/swagger.json
 | Fidelidade | GET | /api/v1/fidelidade/pontos | Consultar pontos |
 | Fidelidade | POST | /api/v1/fidelidade/resgate | Resgatar pontos |
 | Promoções | GET | /api/v1/promocoes | Listar promoções ativas |
+| Promoções | GET | /api/v1/promocoes/:id | Buscar promoção por ID |
 | Promoções | POST | /api/v1/promocoes | Criar promoção/campanha |
+| Promoções | PUT | /api/v1/promocoes/:id | Atualizar promoção |
+| Promoções | PATCH | /api/v1/promocoes/:id/desativar | Desativar promoção |
 
 ## Usuários de Teste (seed)
 
@@ -202,3 +213,4 @@ Para importar: Postman → Import → selecione o arquivo `postman_collection.js
 | `npm run test:coverage` | Testes com relatório de cobertura |
 | `npm run lint` | Verifica estilo do código |
 | `npm run seed` | Popula banco com dados de teste |
+| `npm run docs:generate` | Gera documentação OpenAPI/Swagger |
