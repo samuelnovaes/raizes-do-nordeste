@@ -24,7 +24,7 @@ describe('Auth - Integração', () => {
     it('deve registrar usuário com dados válidos', async () => {
       mockModels.usuario.findOne.resolves(null);
       mockModels.usuario.create.resolves({
-        _id: '123e4567-e89b-12d3-a456-426614174000',
+        _id: '507f1f77bcf86cd799439000',
         nome: 'João',
         email: 'joao@email.com',
         senha: 'hash',
@@ -68,12 +68,12 @@ describe('Auth - Integração', () => {
   describe('GET /api/v1/auth/perfil', () => {
     it('deve retornar perfil do usuário autenticado', async () => {
       const token = jwt.sign(
-        { id: '123e4567-e89b-12d3-a456-426614174000', email: 'joao@email.com', perfil: 'CLIENTE' },
+        { id: '507f1f77bcf86cd799439000', email: 'joao@email.com', perfil: 'CLIENTE' },
         'test-secret',
         { expiresIn: '1h' }
       );
       mockModels.usuario.findById.resolves({
-        _id: '123e4567-e89b-12d3-a456-426614174000',
+        _id: '507f1f77bcf86cd799439000',
         nome: 'João',
         email: 'joao@email.com',
         perfil: 'CLIENTE'
@@ -140,7 +140,7 @@ describe('Auth - Integração', () => {
     it('deve fazer login com credenciais válidas', async () => {
       const senhaHash = await bcrypt.hash('123456', 10);
       mockModels.usuario.findOne.resolves({
-        _id: '123e4567-e89b-12d3-a456-426614174000',
+        _id: '507f1f77bcf86cd799439000',
         nome: 'João',
         email: 'joao@email.com',
         senha: senhaHash,

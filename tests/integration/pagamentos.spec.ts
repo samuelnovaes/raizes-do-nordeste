@@ -6,7 +6,7 @@ import { app } from '../../src/app';
 
 const gerarToken = () => {
   return jwt.sign(
-    { id: '123e4567-e89b-12d3-a456-426614174000', email: 'test@email.com', perfil: 'CLIENTE' },
+    { id: '507f1f77bcf86cd799439000', email: 'test@email.com', perfil: 'CLIENTE' },
     'test-secret',
     { expiresIn: '1h' }
   );
@@ -28,14 +28,14 @@ describe('Pagamentos - Integração', () => {
   describe('POST /api/v1/pagamentos', () => {
     it('deve processar pagamento com sucesso (aprovado)', async () => {
       mockModels.pedido.findUnique.resolves({
-        _id: '123e4567-e89b-12d3-a456-426614174001',
+        _id: '507f1f77bcf86cd799439001',
         total: 50.0,
-        usuarioId: '123e4567-e89b-12d3-a456-426614174000',
+        usuarioId: '507f1f77bcf86cd799439000',
         status: 'AGUARDANDO_PAGAMENTO'
       });
       mockModels.pagamento.create.resolves({
         _id: 'pag-1',
-        pedidoId: '123e4567-e89b-12d3-a456-426614174001',
+        pedidoId: '507f1f77bcf86cd799439001',
         metodo: 'PIX',
         valor: 50.0,
         status: 'APROVADO',
@@ -47,7 +47,7 @@ describe('Pagamentos - Integração', () => {
       const res = await request(app)
         .post('/api/v1/pagamentos')
         .set('Authorization', `Bearer ${gerarToken()}`)
-        .send({ pedidoId: '123e4567-e89b-12d3-a456-426614174001', metodo: 'PIX' });
+        .send({ pedidoId: '507f1f77bcf86cd799439001', metodo: 'PIX' });
 
       expect(res.status).to.equal(201);
       expect(res.body.status).to.equal('APROVADO');
@@ -55,14 +55,14 @@ describe('Pagamentos - Integração', () => {
 
     it('deve processar pagamento recusado', async () => {
       mockModels.pedido.findUnique.resolves({
-        _id: '123e4567-e89b-12d3-a456-426614174001',
+        _id: '507f1f77bcf86cd799439001',
         total: 50.0,
-        usuarioId: '123e4567-e89b-12d3-a456-426614174000',
+        usuarioId: '507f1f77bcf86cd799439000',
         status: 'AGUARDANDO_PAGAMENTO'
       });
       mockModels.pagamento.create.resolves({
         _id: 'pag-1',
-        pedidoId: '123e4567-e89b-12d3-a456-426614174001',
+        pedidoId: '507f1f77bcf86cd799439001',
         metodo: 'RECUSADO',
         valor: 50.0,
         status: 'RECUSADO',
@@ -73,7 +73,7 @@ describe('Pagamentos - Integração', () => {
       const res = await request(app)
         .post('/api/v1/pagamentos')
         .set('Authorization', `Bearer ${gerarToken()}`)
-        .send({ pedidoId: '123e4567-e89b-12d3-a456-426614174001', metodo: 'RECUSADO' });
+        .send({ pedidoId: '507f1f77bcf86cd799439001', metodo: 'RECUSADO' });
 
       expect(res.status).to.equal(201);
       expect(res.body.status).to.equal('RECUSADO');
@@ -85,7 +85,7 @@ describe('Pagamentos - Integração', () => {
       const res = await request(app)
         .post('/api/v1/pagamentos')
         .set('Authorization', `Bearer ${gerarToken()}`)
-        .send({ pedidoId: '123e4567-e89b-12d3-a456-426614174099', metodo: 'PIX' });
+        .send({ pedidoId: '507f1f77bcf86cd799439099', metodo: 'PIX' });
 
       expect(res.status).to.equal(404);
     });

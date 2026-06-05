@@ -6,7 +6,7 @@ import { app } from '../../src/app';
 
 const gerarToken = (perfil = 'GERENTE') => {
   return jwt.sign(
-    { id: '123e4567-e89b-12d3-a456-426614174000', email: 'test@email.com', perfil },
+    { id: '507f1f77bcf86cd799439000', email: 'test@email.com', perfil },
     'test-secret',
     { expiresIn: '1h' }
   );
@@ -71,15 +71,15 @@ describe('Estoque - Integração', () => {
     it('deve registrar entrada de estoque', async () => {
       mockModels.estoque.findFirst.resolves({
         _id: 'est-1',
-        produtoId: '123e4567-e89b-12d3-a456-426614174002',
-        unidadeId: '123e4567-e89b-12d3-a456-426614174001',
+        produtoId: '507f1f77bcf86cd799439002',
+        unidadeId: '507f1f77bcf86cd799439001',
         quantidade: 10
       });
       mockModels.estoque.update.resolves({});
       mockModels.movimentacaoEstoque.create.resolves({
         id: 'mov-1',
-        produtoId: '123e4567-e89b-12d3-a456-426614174002',
-        unidadeId: '123e4567-e89b-12d3-a456-426614174001',
+        produtoId: '507f1f77bcf86cd799439002',
+        unidadeId: '507f1f77bcf86cd799439001',
         tipo: 'ENTRADA',
         quantidade: 5,
         motivo: 'Reposição'
@@ -90,8 +90,8 @@ describe('Estoque - Integração', () => {
         .post('/api/v1/estoque/movimentacao')
         .set('Authorization', `Bearer ${gerarToken()}`)
         .send({
-          produtoId: '123e4567-e89b-12d3-a456-426614174002',
-          unidadeId: '123e4567-e89b-12d3-a456-426614174001',
+          produtoId: '507f1f77bcf86cd799439002',
+          unidadeId: '507f1f77bcf86cd799439001',
           tipo: 'ENTRADA',
           quantidade: 5,
           motivo: 'Reposição'
@@ -103,8 +103,8 @@ describe('Estoque - Integração', () => {
     it('deve retornar 409 para saída com estoque insuficiente', async () => {
       mockModels.estoque.findFirst.resolves({
         _id: 'est-1',
-        produtoId: '123e4567-e89b-12d3-a456-426614174002',
-        unidadeId: '123e4567-e89b-12d3-a456-426614174001',
+        produtoId: '507f1f77bcf86cd799439002',
+        unidadeId: '507f1f77bcf86cd799439001',
         quantidade: 2
       });
 
@@ -112,8 +112,8 @@ describe('Estoque - Integração', () => {
         .post('/api/v1/estoque/movimentacao')
         .set('Authorization', `Bearer ${gerarToken()}`)
         .send({
-          produtoId: '123e4567-e89b-12d3-a456-426614174002',
-          unidadeId: '123e4567-e89b-12d3-a456-426614174001',
+          produtoId: '507f1f77bcf86cd799439002',
+          unidadeId: '507f1f77bcf86cd799439001',
           tipo: 'SAIDA',
           quantidade: 10
         });

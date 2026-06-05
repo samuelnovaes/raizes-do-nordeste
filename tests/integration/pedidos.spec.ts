@@ -7,7 +7,7 @@ import { app } from '../../src/app';
 
 const gerarToken = (perfil = 'CLIENTE') => {
   return jwt.sign(
-    { id: '123e4567-e89b-12d3-a456-426614174000', email: 'test@email.com', perfil },
+    { id: '507f1f77bcf86cd799439000', email: 'test@email.com', perfil },
     'test-secret',
     { expiresIn: '1h' }
   );
@@ -28,9 +28,9 @@ describe('Pedidos - Integração', () => {
 
   describe('POST /api/v1/pedidos', () => {
     const pedidoValido = {
-      unidadeId: '123e4567-e89b-12d3-a456-426614174001',
+      unidadeId: '507f1f77bcf86cd799439001',
       canalPedido: 'TOTEM',
-      itens: [{ produtoId: '123e4567-e89b-12d3-a456-426614174002', quantidade: 2 }],
+      itens: [{ produtoId: '507f1f77bcf86cd799439002', quantidade: 2 }],
       formaPagamento: 'PIX'
     };
 
@@ -51,7 +51,7 @@ describe('Pedidos - Integração', () => {
       mockModels.logAuditoria.create.resolves({});
       mockModels.pedido.create.resolves({
         _id: 'pedido-1',
-        usuarioId: '123e4567-e89b-12d3-a456-426614174000',
+        usuarioId: '507f1f77bcf86cd799439000',
         unidadeId: pedidoValido.unidadeId,
         canalPedido: 'TOTEM',
         formaPagamento: 'PIX',
@@ -190,7 +190,7 @@ describe('Pedidos - Integração', () => {
       mockModels.pedido.findUnique.resolves({
         id: 'pedido-1',
         status: 'PAGO',
-        usuarioId: '123e4567-e89b-12d3-a456-426614174000',
+        usuarioId: '507f1f77bcf86cd799439000',
         itens: []
       });
       mockModels.pedido.update.resolves({
@@ -211,7 +211,7 @@ describe('Pedidos - Integração', () => {
       mockModels.pedido.findUnique.resolves({
         id: 'pedido-1',
         status: 'ENTREGUE',
-        usuarioId: '123e4567-e89b-12d3-a456-426614174000',
+        usuarioId: '507f1f77bcf86cd799439000',
         itens: []
       });
 

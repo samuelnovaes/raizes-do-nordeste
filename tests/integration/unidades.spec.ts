@@ -6,7 +6,7 @@ import { app } from '../../src/app';
 
 const gerarToken = (perfil = 'GERENTE') => {
   return jwt.sign(
-    { id: '123e4567-e89b-12d3-a456-426614174000', email: 'test@email.com', perfil },
+    { id: '507f1f77bcf86cd799439000', email: 'test@email.com', perfil },
     'test-secret',
     { expiresIn: '1h' }
   );

@@ -142,7 +142,7 @@ describe('Usuários - Integração', () => {
   describe('GET /api/v1/usuarios/:id', () => {
     it('deve retornar usuário por ID quando autenticado como ADMIN', async () => {
       const usuario = {
-        _id: '123e4567-e89b-12d3-a456-426614174000',
+        _id: '507f1f77bcf86cd799439000',
         nome: 'João',
         email: 'joao@email.com',
         perfil: 'CLIENTE'
@@ -150,7 +150,7 @@ describe('Usuários - Integração', () => {
       mockModels.usuario.findById.resolves(usuario);
 
       const res = await request(app)
-        .get('/api/v1/usuarios/123e4567-e89b-12d3-a456-426614174000')
+        .get('/api/v1/usuarios/507f1f77bcf86cd799439000')
         .set('Authorization', `Bearer ${adminToken}`);
 
       expect(res.status).to.equal(200);

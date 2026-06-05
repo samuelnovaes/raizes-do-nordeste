@@ -6,7 +6,7 @@ import { app } from '../../src/app';
 
 const gerarToken = () => {
   return jwt.sign(
-    { id: '123e4567-e89b-12d3-a456-426614174000', email: 'test@email.com', perfil: 'CLIENTE' },
+    { id: '507f1f77bcf86cd799439000', email: 'test@email.com', perfil: 'CLIENTE' },
     'test-secret',
     { expiresIn: '1h' }
   );
@@ -29,7 +29,7 @@ describe('Fidelidade - Integração', () => {
     it('deve retornar pontos do cliente', async () => {
       mockModels.fidelidade.findOne.resolves({
         id: 'fid-1',
-        usuarioId: '123e4567-e89b-12d3-a456-426614174000',
+        usuarioId: '507f1f77bcf86cd799439000',
         pontos: 150
       });
 
@@ -55,17 +55,17 @@ describe('Fidelidade - Integração', () => {
   describe('POST /api/v1/fidelidade/resgate', () => {
     it('deve resgatar pontos com sucesso', async () => {
       mockModels.usuario.findById.resolves({
-        _id: '123e4567-e89b-12d3-a456-426614174000',
+        _id: '507f1f77bcf86cd799439000',
         consentimentoLgpd: true
       });
       mockModels.fidelidade.findOne.resolves({
         _id: 'fid-1',
-        usuarioId: '123e4567-e89b-12d3-a456-426614174000',
+        usuarioId: '507f1f77bcf86cd799439000',
         pontos: 100
       });
       mockModels.fidelidade.findOneAndUpdate.resolves({
         _id: 'fid-1',
-        usuarioId: '123e4567-e89b-12d3-a456-426614174000',
+        usuarioId: '507f1f77bcf86cd799439000',
         pontos: 50
       });
       mockModels.logAuditoria.create.resolves({});
@@ -81,12 +81,12 @@ describe('Fidelidade - Integração', () => {
 
     it('deve retornar 409 quando pontos insuficientes', async () => {
       mockModels.usuario.findById.resolves({
-        _id: '123e4567-e89b-12d3-a456-426614174000',
+        _id: '507f1f77bcf86cd799439000',
         consentimentoLgpd: true
       });
       mockModels.fidelidade.findOne.resolves({
         id: 'fid-1',
-        usuarioId: '123e4567-e89b-12d3-a456-426614174000',
+        usuarioId: '507f1f77bcf86cd799439000',
         pontos: 10
       });
 
