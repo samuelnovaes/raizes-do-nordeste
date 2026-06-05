@@ -10,7 +10,6 @@ const opcoes = {
       description: 'API REST para a rede de lanchonetes Raízes do Nordeste. Gerencia pedidos, cardápio, estoque, pagamentos e programa de fidelidade com suporte a múltiplos canais (APP, TOTEM, BALCÃO, PICKUP, WEB).'
     },
     servers: [
-      { url: 'https://raizes-do-nordeste.onrender.com/api/v1', description: 'Servidor remoto' },
       { url: 'http://localhost:3000/api/v1', description: 'Servidor local' }
     ],
     components: {

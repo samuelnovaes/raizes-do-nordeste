@@ -7,10 +7,6 @@
   },
   "servers": [
     {
-      "url": "https://raizes-do-nordeste.onrender.com/api/v1",
-      "description": "Servidor remoto"
-    },
-    {
       "url": "http://localhost:3000/api/v1",
       "description": "Servidor local"
     }
