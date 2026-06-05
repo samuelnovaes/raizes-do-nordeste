@@ -7,8 +7,8 @@ import * as estoqueController from '../controllers/estoqueController';
 const router = Router();
 
 const esquemaMovimentacao = z.object({
-  produtoId: z.string().uuid(),
-  unidadeId: z.string().uuid(),
+  produtoId: z.string().regex(/^[0-9a-fA-F]{24}$/, 'Formato de ID inválido'),
+  unidadeId: z.string().regex(/^[0-9a-fA-F]{24}$/, 'Formato de ID inválido'),
   tipo: z.enum(['ENTRADA', 'SAIDA']),
   quantidade: z.number().int().positive(),
   motivo: z.string().optional()

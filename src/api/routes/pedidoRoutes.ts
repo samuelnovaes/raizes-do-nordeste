@@ -7,10 +7,10 @@ import * as pedidoController from '../controllers/pedidoController';
 const router = Router();
 
 const esquemaCriar = z.object({
-  unidadeId: z.string().uuid(),
+  unidadeId: z.string().regex(/^[0-9a-fA-F]{24}$/, 'Formato de ID inválido'),
   canalPedido: z.enum(['APP', 'TOTEM', 'BALCAO', 'PICKUP', 'WEB']),
   itens: z.array(z.object({
-    produtoId: z.string().uuid(),
+    produtoId: z.string().regex(/^[0-9a-fA-F]{24}$/, 'Formato de ID inválido'),
     quantidade: z.number().int().positive()
   })).min(1),
   formaPagamento: z.string().min(1)
