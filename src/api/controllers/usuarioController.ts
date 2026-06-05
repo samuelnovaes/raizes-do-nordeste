@@ -23,7 +23,7 @@ export async function listar(req: Request, res: Response, next: NextFunction) {
 // Busca um usuário por ID (apenas ADMIN)
 export async function buscarPorId(req: Request, res: Response, next: NextFunction) {
   try {
-    const usuario = await Usuario.findById(req.params.id);
+    const usuario = await Usuario.findById(req.params.id, '-senha');
     if (!usuario) {
       throw erroNaoEncontrado('Usuário');
     }
