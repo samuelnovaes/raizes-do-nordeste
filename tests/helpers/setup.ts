@@ -12,15 +12,15 @@ function createChainableFind(stub: sinon.SinonStub) {
     limit: sinon.stub().returnsThis(),
     sort: sinon.stub().returnsThis(),
     then: (resolve: any, reject: any) => {
-      return stub._lastResult !== undefined
-        ? Promise.resolve(stub._lastResult).then(resolve, reject)
+      return (stub as any)._lastResult !== undefined
+        ? Promise.resolve((stub as any)._lastResult).then(resolve, reject)
         : Promise.resolve([]).then(resolve, reject);
     }
   };
 
   // Override resolves to also set the chain result
   const originalResolves = stub.resolves.bind(stub);
-  stub.resolves = (val: any) => {
+  stub.resolves = (val?: any) => {
     (stub as any)._lastResult = val;
     chainable.populate.returns(chainable);
     chainable.skip.returns(chainable);
@@ -32,7 +32,7 @@ function createChainableFind(stub: sinon.SinonStub) {
   };
 
   const originalRejects = stub.rejects.bind(stub);
-  stub.rejects = (val: any) => {
+  stub.rejects = (val?: any) => {
     chainable.populate.returns(chainable);
     chainable.skip.returns(chainable);
     chainable.limit.returns(chainable);
@@ -54,7 +54,7 @@ function createChainableFind(stub: sinon.SinonStub) {
 // Helper para criar stub de findById/findOne que suporta .populate()
 function createPopulatableStub(stub: sinon.SinonStub) {
   const originalResolves = stub.resolves.bind(stub);
-  stub.resolves = (val: any) => {
+  stub.resolves = (val?: any) => {
     const result = {
       populate: sinon.stub().resolves(val),
       select: sinon.stub().resolves(val),
@@ -65,7 +65,7 @@ function createPopulatableStub(stub: sinon.SinonStub) {
   };
 
   const originalRejects = stub.rejects.bind(stub);
-  stub.rejects = (val: any) => {
+  stub.rejects = (val?: any) => {
     const err = val instanceof Error ? val : new Error(val);
     const result = {
       populate: sinon.stub().rejects(err),
