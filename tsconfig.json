@@ -15,6 +15,6 @@
     "sourceMap": true,
     "verbatimModuleSyntax": false
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "tests/**/*", "scripts/**/*"],
   "exclude": ["node_modules", "dist"]
 }
