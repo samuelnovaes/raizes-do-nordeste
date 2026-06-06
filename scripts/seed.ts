@@ -80,6 +80,39 @@ async function main() {
     );
   }
 
+  // Criar promoção
+  const Promocao = (await import('../src/infrastructure/database/models')).Promocao;
+  const promocao = await Promocao.findOneAndUpdate(
+    { nome: 'Promoção de Verão' },
+    { 
+      nome: 'Promoção de Verão', 
+      descricao: 'Desconto em bebidas', 
+      tipo: 'PERCENTUAL', 
+      valor: 10, 
+      dataInicio: new Date(), 
+      dataFim: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), 
+      ativo: true, 
+      canalPedido: 'TODOS'
+    },
+    { upsert: true, new: true }
+  );
+
+  // Criar pedido
+  const Pedido = (await import('../src/infrastructure/database/models')).Pedido;
+  await Pedido.findOneAndUpdate(
+    { usuarioId: cliente?._id },
+    {
+      usuarioId: cliente?._id,
+      unidadeId: unidades[0]._id,
+      canalPedido: 'TOTEM',
+      status: 'AGUARDANDO_PAGAMENTO',
+      itens: [{ produtoId: produtos[0]._id, quantidade: 2, precoUnitario: produtos[0].preco }],
+      total: produtos[0].preco * 2,
+      formaPagamento: 'PIX'
+    },
+    { upsert: true }
+  );
+
   console.log('Seed concluído com sucesso!');
   await desconectarMongoDB();
 }
