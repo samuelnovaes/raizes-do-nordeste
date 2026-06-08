@@ -9,6 +9,10 @@
     {
       "url": "http://localhost:3000/api/v1",
       "description": "Servidor local"
+    },
+    {
+      "url": "https://raizes-do-nordeste.onrender.com/api/v1",
+      "description": "Produção"
     }
   ],
   "components": {
